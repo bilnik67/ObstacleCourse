@@ -6,9 +6,19 @@ public class PlayerCollision : MonoBehaviour
 {
     Rigidbody rb;
 
+    public GameOverScreen gameOverScreen;
+
+    public PlayerMovement playerMovement;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    public void GameOver()
+    {
+        playerMovement.InputEnabled = false;
+        gameOverScreen.Setup();            
     }
 
     // other is the object that the player collided with
@@ -23,6 +33,7 @@ public class PlayerCollision : MonoBehaviour
             Debug.Log("Player collided with obstacle!");
             // Make player red = die
             GetComponent<MeshRenderer>().material.color = Color.red;
+            GameOver();
             rb.freezeRotation = false;
         }
     }
